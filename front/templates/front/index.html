@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>360 Fitness</title>
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static 'front/style.css' %}" />
+	</head>
+	<body>
+		<div id="header">
+			<img src="{% static 'front/images/logo.jpeg' %}">
+			<span>360 Fitness</span>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:logout_view' %}"> <img src="{% static 'front/images/logout.png' %}"></a><p>Log Out</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:profile_view' %}"><img src="{% static 'front/images/contact.png' %}"></a><p>Profile</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><img src="{% static 'front/images/home.png' %}"><p>Home</p></div>
+			</div>
+		</div>
+		<div id="content">
+			<a href="{% url 'FindGym:findgym' %}"><img src="{% static 'front/images/findgym.png' %}"></a><a href="{% url 'FindBuddy:buddysearch' %}"><img src="{% static 'front/images/findbuddy.png' %}"></a>
+			<a href="{% url 'FindMeal:meal_home' %}"><img src="{% static 'front/images/findmeal.png' %}"></a><a href="{% url 'FindExercises:workingout' %}"><img src="{% static 'front/images/findexercise.png' %}"></a>
+		</div>
+	</div>
+	</body>
+<html>

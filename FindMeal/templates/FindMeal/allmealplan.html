@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<title>360 Fitness</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'front/style.css' %}">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+       <style>
+	table {
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th {
+    cursor: pointer;
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+		</style>
+
+	</head>
+	<body>
+		<div id="header">
+			<img src="{% static 'front/images/logo.jpeg' %}">
+			<span>360 Fitness</span>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:logout_view' %}"><img src="{% static 'front/images/logout.png' %}"></a><p>Log Out</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:profile_view' %}"><img src="{% static 'front/images/contact.png' %}"></a><p>Profile</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:home' %}"><img src="{% static 'front/images/home.png' %}"></a><p>Home</p></div>
+			</div>
+		</div>
+		<div id="content" style="background-image:url({% static 'front/images/healthyfood.jpg'%}); overflow-x: hidden;">
+			<br>
+			
+			<div style="text-align:center;"><h2>Food products and their contents:</h2></div>
+			
+			<table id="mytable" style="margin-left: auto; margin-right: auto;">
+				<tr>
+				<th><b> Food Description & Portion Size </b></th>
+				<th><b> Calories </b></th>
+				<th><b> Fat </b></th>
+				<th><b> Protein </b></th>
+				<th><b> Carbohydrate </b></th>
+				</tr>
+				{% for food in foods %}
+				<tr>
+				<td>{{ food.food_desc_portion }}</td>
+				<td>{{ food.calories }}</td>
+				<td>{{ food.fat }}</td>
+				<td>{{ food.protein }}</td>
+				<td>{{ food.carbohydrate }}</td>
+				</tr>		
+			    {% endfor %}
+			</table>
+	</div>	
+  <script>
+ $(document).ready(function () { 
+ $('th').click(function(){
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable2");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc"; 
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++; 
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+});
+});
+  </script>
+	</body>
+<html>	

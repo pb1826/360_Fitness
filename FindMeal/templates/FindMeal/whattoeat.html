@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<title>360 Fitness</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'front/style.css' %}">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <style>
+			th {
+    cursor: pointer;
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+		</style>
+
+	</head>
+	<body>
+		<div id="header">
+			<img src="{% static 'front/images/logo.jpeg' %}">
+			<span>360 Fitness</span>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:logout_view' %}"><img src="{% static 'front/images/logout.png' %}"></a><p>Log Out</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:profile_view' %}"><img src="{% static 'front/images/contact.png' %}"></a><p>Profile</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:home' %}"><img src="{% static 'front/images/home.png' %}"></a><p>Home</p></div>
+			</div>
+		</div>
+		<div id="content" style="background-image:url({% static 'front/images/healthyfood.jpg' %}); overflow-x: hidden;">
+			<form style="margin-left:5px; text-align: center;">
+				<br>
+                <span style="color:#424949;"><h3>Enter/Update Your BMI:</h3></span>
+				<input id="ht" type="text" name="height" placeholder="Enter Height in Meters">
+				<input id="wt" type="text" name="weight" placeholder="Enter Weight in Kgs">
+				<button style="color:#154360" type="submit" name="submit">Submit</button>
+			</form>
+			<br>
+
+			<div style="text-align:center;"><h3>Height: {{params.ht}}, Weight: {{params.wt}}, Your BMI value: {{ bmi.value }}<br>
+			You are {{ bmi.stat }}. You should intake below meals</h3> </div>
+
+			<table style="margin-left: auto; margin-right: auto;">
+				<tr>
+				<th><b> Food Description & Portion Size </b></th>
+				<th><b> Calories </b></th>
+				<th><b> Fat </b></th>
+				<th><b> Protein </b></th>
+				<th><b> Carbohydrate </b></th>
+				</tr>
+				{% for food in foods %}
+				<tr>
+				<td>{{ food.food_desc_portion }}</td>
+				<td>{{ food.calories }}</td>
+				<td>{{ food.fat }}</td>
+				<td>{{ food.protein }}</td>
+				<td>{{ food.carbohydrate }}</td>
+				</tr>
+			    {% endfor %}
+			</table>
+	</div>
+  <script>
+  $("form").submit(function(event){
+				event.preventDefault();
+				var height = document.getElementById("ht").value;
+				var weight = document.getElementById("wt").value;
+				console.log(height);
+				 $.ajax({
+					url: 'getValues/',
+					data: {
+					'height': height,
+					'weight': weight
+					},
+					dataType: 'json',
+					success: function (data) {
+						if (data.new_bmi) {
+							alert("Your new BMI: " + data.bmi_value);
+							location.reload(); // then reload the page.(3)
+
+						}
+					}
+				});
+			});
+
+  </script>
+	</body>
+<html>

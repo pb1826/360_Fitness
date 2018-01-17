@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<title>360 Fitness</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'front/style.css' %}">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        button{
+        font-size: 20px;
+        padding: 14px 40px;
+        border-radius: 8px;
+        transition-duration: 0.4s;
+        display: block;
+        width: 200px;
+        }
+        button:hover{
+
+    background-color: #4CAF50;
+    color: white;
+        }
+    </style>
+	</head>
+	<body>
+		<div id="header">
+			<img src="{% static 'front/images/logo.jpeg' %}">
+			<span>360 Fitness</span>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:logout_view' %}"><img src="{% static 'front/images/logout.png' %}"></a><p>Log Out</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:profile_view' %}"><img src="{% static 'front/images/contact.png' %}"></a><p>Profile</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:home' %}"><img src="{% static 'front/images/home.png' %}"></a><p>Home</p></div>
+			</div>
+		</div>
+		<div id="content">
+            {% for bud in buddy %}
+            <button type="button" data-container="body"
+                    data-toggle="popover" data-placement="right"
+                    title="{{ bud.likes }}"
+                    data-content="Height:{{ bud.height }}, Weight:{{ bud.weight}}" data-trigger="hover">
+                {{ bud.userid }} </button>
+                    <br>
+
+
+
+			    {% endfor %}
+
+        </div>
+    <script>
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+
+    </script>
+	</body>
+<html>
+
+

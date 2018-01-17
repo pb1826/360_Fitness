@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<title>360 Fitness</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'front/style.css' %}">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <style>
+
+
+		th, td {
+ 		   text-align: left;
+   	 		padding: 10px;
+		}
+        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color:white ;
+            opacity: 1; /* Firefox */
+        }
+        h4{
+            color:#239B56  ;
+        }
+        input{
+
+            background-color:#008CBA;  ;
+            color:white;
+            height:20px;
+            width:130px;
+            font-size: 13px;
+        }
+        button {
+            background-color: #555555; /* Green */
+            border: none;
+            color: white;
+            padding: 12px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+		</style>
+
+	</head>
+	<body>
+		<div id="header">
+			<img src="{% static 'front/images/logo.jpeg' %}">
+			<span>360 Fitness</span>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:logout_view' %}"><img src="{% static 'front/images/logout.png' %}"></a><p>Log Out</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><img src="{% static 'front/images/contact.png' %}"><p>Profile</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:home' %}"><img src="{% static 'front/images/home.png' %}"></a><p>Home</p></div>
+			</div>
+		</div>
+		<div id="content" style="background-image:url({% static 'front/images/sport.png' %}); overflow-x: hidden;">
+			<form style="margin-left:50px; text-align: left;">
+				<br>
+                <span style="color:#424949;"><h3>Enter/Update your Profile information:</h3></span>
+				 <table>
+
+                     <tr><td><h4 style="display:inline;">Height:   </h4></td>
+                         <td><input id="ht" type="text" name="height" placeholder="Enter Height in Meters"></td></tr>
+                     <tr><td><h4 style="display:inline;">Weight:   </h4></td>
+                         <td><input id="wt" type="text" name="weight" placeholder="Enter Weight in Kgs"></td></tr>
+                     <tr><td><h4 style="display:inline;">Likes:   </h4></td>
+                         <td><input id="likes" type="text" name="likes"></td></tr>
+                    <tr><td><h4 style="display:inline;">Goal:   </h4></td>
+                        <td><input id="goal" type="text" name="goal" placeholder="Gain/Loose/Maintain"></td></tr>
+				<tr><td><button type="submit" name="submit">Submit</button></td></tr>
+                </table>
+			</form>
+			</div>
+
+  <script>
+  $("form").submit(function(event){
+				event.preventDefault();
+				var height = document.getElementById("ht").value;
+				var weight = document.getElementById("wt").value;
+                var likes = document.getElementById("likes").value;
+                var goal = document.getElementById("goal").value;
+				console.log(height);
+				 $.ajax({
+					url: 'profile_update/',
+					data: {
+					'height': height,
+					'weight': weight,
+                    'likes' : likes,
+                    'goal':goal,
+
+					},
+					dataType: 'json',
+					success: function (data) {
+						if (data.userid) {
+							alert("Your Profile updated successfully");
+							location.reload(); // then reload the page.(3)
+							window.location.href="{% url 'front:home' %}";
+
+						}
+					}
+				});
+			});
+
+  </script>
+	</body>
+<html>

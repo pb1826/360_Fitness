@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<title>360 Fitness</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'front/style.css' %}">
+
+
+	</head>
+	<body>
+		<div id="header">
+			<img src="{% static 'front/images/logo.jpeg' %}">
+			<span>360 Fitness</span>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:logout_view' %}"><img src="{% static 'front/images/logout.png' %}"></a><p>Log Out</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:profile_view' %}"><img src="{% static 'front/images/contact.png' %}"></a><p>Profile</p></div>
+			</div>
+			<div style="font-size:20px; float:right;">
+				<div class="img-with-text"><a href="{% url 'front:home' %}"><img src="{% static 'front/images/home.png' %}"></a><p>Home</p></div>
+			</div>
+		</div>
+		<div id="content">
+		<a href="{% url 'FindBuddy:chatwithbuddy' %}"><img src="{% static 'front/images/chatwithbuddy.jpeg' %}"></a><a href="{% url 'FindBuddy:buddyinfo' %}"><img src="{% static 'front/images/buddyinfo.jpeg' %}"></a>
+		</div>
+	</body>
+<html>
